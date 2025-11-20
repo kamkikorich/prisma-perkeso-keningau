@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>PRISMA PERKESO</title></head>
+<body style="font-family:sans-serif; padding:50px; text-align:center; background:#f4f4f9;">
+    <h1 style="color:#6a1b9a;">PRISMA PERKESO KENINGAU</h1>
+    <input type="text" id="soalan" placeholder="Tanya di sini..." style="padding:15px; width:60%;">
+    <button onclick="tanya()" style="padding:15px; background:#6a1b9a; color:white; border:none;">HANTAR</button>
+    <div id="jawapan" style="margin-top:20px; padding:20px; background:white;"></div>
+    <script>
+        async function tanya() {
+            const q = document.getElementById('soalan').value;
+            document.getElementById('jawapan').innerText = "Sedang memproses...";
+            const res = await fetch('/tanya', {
+                method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({soalan:q})
+            });
+            const data = await res.json();
+            document.getElementById('jawapan').innerHTML = data.jawapan;
+        }
+    </script>
+</body>
+</html>
